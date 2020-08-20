@@ -7,8 +7,7 @@
  */
 int main(int __attribute__((unused))argc, char **argv)
 {
-	int status_output = 0;
-	int read = 1;
+	int status_output = 0, read = 1;
 
 	while (read)
 	{
@@ -33,16 +32,17 @@ int main(int __attribute__((unused))argc, char **argv)
 		{
 			command_line = strtok(command_line, "\n");
 			if (_myexit(command_line) == 0)
-			{
-				free(command_line);
 				return (status_output);
-			}
 			_myenv(command_line);
 			argm = splitline(command_line);
+			if (argm[0] == NULL)
+			{
+				free(command_line), free(argm);
+				continue;
+			}
 			status_output = execute_process(argm, argv);
-			free(argm);
 		}
-		free(command_line);
+		free(command_line), free(argm);
 	}
 	return (status_output);
 }
