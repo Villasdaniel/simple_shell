@@ -22,6 +22,7 @@ struct link *next;
 } link_t;
 extern char **environ;
 char *_getenv(const char *name);
+char *_strcpy(char *dest, char *src);
 char *_strtok(char *str, char *delim);
 ssize_t _getline(char **bufline, size_t *size, FILE *std);
 char **splitline(char *command_line);
