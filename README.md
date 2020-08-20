@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTLtL_ToHLEo_BWFxD-yf32Ux3zfsH_NPc8Qw&usqp=CAU" width="450" height="250">	
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTLtL_ToHLEo_BWFxD-yf32Ux3zfsH_NPc8Qw&usqp=CAU" width="450" height="350">
 <h1> Command interpreter - Simple Shell poject</h1></p>
 
 ## BACKGROUND 🐕
@@ -21,7 +21,7 @@ Where prototypes and global variables are stored.
 There are some functions used to run our simple shell
 
 * [_myexit](https://github.com/Villasdaniel/simple_shell/blob/master/built-in.c)
-Function that heck command line to exit shell.
+Function that check command line to exit shell.
 
 * [signal_c](https://github.com/Villasdaniel/simple_shell/blob/master/built-in.c)
 Function that make shell ignore input signal Ctrl + C.
@@ -80,7 +80,7 @@ Function that breaks a string into a sequence.
 
 ### Examples
 
-### interactive
+### No interactive
 
 input:
 
@@ -126,21 +126,21 @@ total 64
 
 $
 
-### Not interactive
+### Interactive
 
 input:
 
-daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out 
+daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out
 $ qwerty
 
 output:
 
 error: No such file or directory
-$ 
+$
 
 input:
 
-daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out 
+daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out
 $ ls -l
 
 output:
@@ -175,6 +175,6 @@ total 52
 
 $
 
-### Authors 
+### Authors
 * Valentina Jaramillo [valen2510](https://github.com/valen2510)
 * Daniel Villa [Villasdaniel](https://github.com/Villasdaniel)
