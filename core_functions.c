@@ -30,9 +30,9 @@ char *_getenv(const char *name)
  * @std: file stream where comes the command buffer line.
  * Return: number of bytes copied in the buffer.
  **/
-int _getline(char **bufline, size_t *size, FILE *std)
+ssize_t _getline(char **bufline, size_t *size, FILE *std)
 {
-	int count = 0;
+	size_t count = 0;
 	size_t alloc = 1024;
 	char c;
 
@@ -96,36 +96,44 @@ int execute_process(char **argm)
 	link_t *head = NULL;
 	char *buffer = NULL;
 	int status_output = 0;
-
+	
 	path = _getenv("PATH");
+	printf("%s\n", path);
 	head = _link(path);
 	buffer = _which(&head, argm[0]);
-	
+	child_process = fork();
+	printf("este es el proceso: %i\n", child_process);
 	if (buffer == NULL)
 	{
-		free(buffer);
-		free(argm);
-		free_list(head);
+		perror("error");
+		/*free(buffer);
+		free_array(argm);
+		free_list(head);*/
 		return (1);
 	}
-	child_process = fork();
 	if (child_process < 0)
 	{
+		printf("child_process: %i", child_process);
 		exit(errno);
 	}
 	else if (child_process == 0)
 	{
 		if (execve(buffer, argm, environ) == -1)
+		{
+			perror("./shell");
 			exit(errno);
+		}
 	}
 	else
 	{
 		wait(&status);
 		if (WIFEXITED(status))
+		{
 			status_output = WEXITSTATUS(status);
-		free(buffer);
-		free(argm);
-		free_list(head);
+		}
+		/*free(buffer);
+		free(argm);*/
+		/*free_list(head);*/
 	}
 	return (status_output);
 }
@@ -146,11 +154,12 @@ char *_which(link_t **head, char *av)
 	while (pusher)
 	{
 		buffer = _strcat(pusher->dir, "/", av);
+		printf("%s\n", buffer);
 		if (stat((const char *)buffer, &st) == 0)
 		{
 			return (buffer);
 		}
-		free(buffer);
+		/*free(buffer);*/
 		pusher = pusher->next;
 	}
 	return (NULL);

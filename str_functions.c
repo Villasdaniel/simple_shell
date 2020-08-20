@@ -82,7 +82,7 @@ char *_strtok(char *str, char *delim)
 		tracker = NULL;
 		return (str + j);
 	}
-	if (str + (i + 1))
+	if (str + i)
 		tracker = str + i;
 	else
 		tracker = NULL;

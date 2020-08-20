@@ -63,3 +63,18 @@ void free_list(link_t *head)
 		free(temp);
 	}
 }
+/**
+ * free_array - frees a array
+ * @argm: array
+ */
+void free_array(char **argm)
+{
+	int i = 0;
+
+	while (argm[i] != NULL)
+	{
+		free(argm[i]);
+		i++;
+	}
+	free(argm);
+}
