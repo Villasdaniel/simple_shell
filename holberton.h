@@ -20,11 +20,10 @@ typedef struct link
 {char *dir;
 struct link *next;
 } link_t;
-
 extern char **environ;
 char *_getenv(const char *name);
 char *_strtok(char *str, char *delim);
-int _getline(char **bufline, size_t *size, FILE *std);
+ssize_t _getline(char **bufline, size_t *size, FILE *std);
 char **splitline(char *command_line);
 void signal_c(int sign);
 int _myexit(char *line);
@@ -36,5 +35,6 @@ link_t *_link(char *a);
 char *_strcat(char *directory, char *slash, char *arg);
 char *_which(link_t **head, char *av);
 void free_list(link_t *head);
+void free_array(char **argm);
 int _myenv(char *line);
 #endif
