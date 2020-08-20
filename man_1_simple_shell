@@ -1,0 +1,139 @@
+.TH man 1 simple shell  "August 2020"
+
+.SH NAME
+shell - command interpreter
+
+.SH SYNOPSIS
+.B shell [command][arguments]...
+
+.SH DESCRIPTION
+.PP
+Shell is the standard command interpreter for the system. This man page is not intended to be a tutorial or a
+     complete specification of the shell.
+     
+.SS OVERVIEW
+.PP
+The shell is a command that reads lines from either a file or the termi‐
+nal, interprets them, and generally executes other commands.  It is the
+program that is running when a user logs into the system (although a user
+can select a different shell with the chsh(1) command). The shell is a command that reads lines from either a file or the termi‐
+nal, interprets them, and generally executes other commands.  It is the
+program that is running when a user logs into the system (although a user
+can select a different shell with the chsh(1) command). .PP
+
+.SS Invocations
+.PP
+If command line arguments besides the options have been specified, then
+the shell treats the first argument as the name of a file from which to
+read commands (a shell script), and the remaining arguments are set as
+the positional parameters of the shell ($1, $2, etc).  Otherwise, the
+shell reads commands from its standard input.
+
+
+.SH Examples 
+.RS
+
+.SS interactive
+
+.BI input:
+
+$ echo "qwerty" | ./a.out
+
+.BI Output:
+
+error: No such file or directory
+
+.BI input:
+
+echo "ls -l" | ./a.out
+
+.BI output:
+
+total 64
+
+-rwxrwxr-x 1 daniel daniel 26184 ago 17 23:11 a.out
+
+-rw-rw-r-- 1 daniel daniel   188 ago 12 13:56 AUTHORS
+
+-rw-rw-r-- 1 daniel daniel  1113 ago 18 13:52 built-in.c
+
+-rw-rw-r-- 1 daniel daniel  2881 ago 17 22:55 core_functions.c
+
+-rw-rw-r-- 1 daniel daniel  1001 ago 17 23:13 holberton.h
+
+-rw-rw-r-- 1 daniel daniel  1212 ago 17 23:01 list_functions.c
+
+-rw-rw-r-- 1 daniel daniel  1951 ago 18 19:13 man_sh
+
+-rw-rw-r-- 1 daniel daniel  3528 ago 18 18:25 README.md
+
+-rw-rw-r-- 1 daniel daniel   726 ago 17 23:11 shell.c
+
+-rw-rw-r-- 1 daniel daniel  1524 ago 17 23:07 str_functions.c
+
+-rw-rw-r-- 1 daniel daniel     0 ago 17 21:38 testing_tmp_file_29291
+
+-rw-rw-r-- 1 daniel daniel     0 ago 17 21:38 testing_tmp_file_3505
+
+-rw-rw-r-- 1 daniel daniel     0 ago 17 21:38 testing_tmp_file_5322
+
+$
+
+.SS Not interactive
+
+.BI input:
+
+daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out 
+$ qwerty
+
+.BI output:
+
+error: No such file or directory
+$ 
+
+.BI input:
+
+daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out 
+$ ls -l
+
+.BI output:
+
+total 52
+
+-rwxrwxr-x 1 daniel daniel 13792 ago 18 19:33 a.out
+
+-rw-rw-r-- 1 daniel daniel   188 ago 12 13:56 AUTHORS
+
+-rw-rw-r-- 1 daniel daniel  1091 ago 18 19:33 built-in.c
+
+-rw-rw-r-- 1 daniel daniel  2881 ago 17 22:55 core_functions.c
+
+-rw-rw-r-- 1 daniel daniel  1001 ago 17 23:13 holberton.h
+
+-rw-rw-r-- 1 daniel daniel  1212 ago 17 23:01 list_functions.c
+
+-rw-rw-r-- 1 daniel daniel  2634 ago 18 19:26 man_sh
+
+-rw-rw-r-- 1 daniel daniel  3528 ago 18 18:25 README.md
+
+-rw-rw-r-- 1 daniel daniel   726 ago 17 23:11 shell.c
+
+-rw-rw-r-- 1 daniel daniel  1524 ago 17 23:07 str_functions.c
+
+-rw-rw-r-- 1 daniel daniel     0 ago 17 21:38 testing_tmp_file_29291
+
+-rw-rw-r-- 1 daniel daniel     0 ago 17 21:38 testing_tmp_file_3505
+
+-rw-rw-r-- 1 daniel daniel     0 ago 17 21:38 testing_tmp_file_5322
+
+$
+
+.SH BUGS 
+
+if you found some issues or bugs please report to 1826@holbertonschool.com || 2057@holbertonschool.com
+
+.SH AUTHORS
+
+Valentina Jaramillo, .B 1826@holbertonschool.com
+
+Daniel Villa, .B 2057@holbertonschool.com
