@@ -3,7 +3,7 @@
  * main - Entry point for shell
  * Return: 0 (Return value)
  */
-int main(void)
+int main(int __attribute__((unused))argc, char **argv)
 {
 	int status_output = 0;
 	int read = 1;
@@ -37,10 +37,10 @@ int main(void)
 			}
 			_myenv(command_line);
 			argm = splitline(command_line);
-			status_output = execute_process(argm);
-			free(command_line);
+			status_output = execute_process(argm, argv);
 			free(argm);
 		}
+		free(command_line);
 	}
 	return (status_output);
 }

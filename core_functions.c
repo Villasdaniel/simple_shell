@@ -95,7 +95,7 @@ char **splitline(char *command_line)
  * @argm: arguments from command_line
  * Return: 0 (Success) -1 (Failed)
  **/
-int execute_process(char **argm)
+int execute_process(char **argm, char **argv)
 {
 	pid_t child_process;
 	int status;
@@ -103,12 +103,15 @@ int execute_process(char **argm)
 	link_t *head = NULL;
 	char *buffer = NULL;
 	int status_output = 0;
+	int i = 0;
 
 	path = _getenv("PATH");
 	head = _link(path);
 	buffer = _which(&head, argm[0]);
+	i++;
 	if (buffer == NULL)
 	{
+		_printf("%s: %i: %s: not found\n",argv[0], i, argm[0]);
 		free(buffer);
 		free(path);
 		free_list(head);
