@@ -99,43 +99,43 @@ char **splitline(char *command_line)
 int execute_process(char **argm, char **argv)
 {
 	pid_t child_process;
-	int status, i = 0;
-	char *path = NULL;
+	int status, i = 0, status_output = 0;
+	char *path = NULL, *buffer = NULL, *command_path = NULL;
 	link_t *head = NULL;
-	char *buffer = NULL;
-	int status_output = 0;
 
-	path = _getenv("PATH");
-	head = _link(path);
-	buffer = _which(&head, argm[0]);
 	i++;
-	if (buffer == NULL)
+	command_path = check_path(argm[0]);
+	if (command_path == NULL)
 	{
-		_printf("%s: %i: %s: not found\n", argv[0], i, argm[0]);
-		free(buffer);
-		free(path);
-		free_list(head);
-		return (1);
+		path = _getenv("PATH");
+		head = _link(path);
+		buffer = _which(&head, argm[0]);
+		if (buffer == NULL)
+		{
+			_printf("%s: %i: %s: not found\n", argv[0], i, argm[0]);
+			free(buffer), free(path), free_list(head);
+			return (1);
+		}
 	}
 	child_process = fork();
 	if (child_process < 0)
 		exit(errno);
 	else if (child_process == 0)
 	{
-		if (execve(buffer, argm, environ) == -1)
+		if (command_path != NULL)
 		{
-			perror("./shell");
-			exit(errno);
+			if (execve(command_path, argm, environ) == -1)
+				exit(errno);
 		}
+		if (execve(buffer, argm, environ) == -1)
+			exit(errno);
 	}
 	else
 	{
 		wait(&status);
 		if (WIFEXITED(status))
 			status_output = WEXITSTATUS(status);
-		free(buffer);
-		free(path);
-		free_list(head);
+		free(buffer), free(path), free_list(head);
 	}
 	return (status_output);
 }
@@ -150,8 +150,6 @@ char *_which(link_t **head, char *av)
 	link_t *pusher = *head;
 	char *buffer;
 
-	if (access(av, X_OK) == 0)
-		return (av);
 	while (pusher)
 	{
 		buffer = _strcat(pusher->dir, "/", av);

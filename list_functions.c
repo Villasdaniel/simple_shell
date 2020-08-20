@@ -64,17 +64,13 @@ void free_list(link_t *head)
 	}
 }
 /**
- * free_array - frees a array
- * @argm: array
+ * check_path - check if argumnt is already a path
+ * @argm: entry argument
+ * Return: argm (Success) NULL (Not found)
  */
-void free_array(char **argm)
+char *check_path(char *argm)
 {
-	int i = 0;
-
-	while (argm[i] != NULL)
-	{
-		free(argm[i]);
-		i++;
-	}
-	free(argm);
+	if (access(argm, X_OK) == 0)
+		return (argm);
+	return (NULL);
 }

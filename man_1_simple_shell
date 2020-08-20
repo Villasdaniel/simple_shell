@@ -10,7 +10,7 @@ shell - command interpreter
 .PP
 Shell is the standard command interpreter for the system. This man page is not intended to be a tutorial or a
      complete specification of the shell.
-     
+
 .SS OVERVIEW
 .PP
 The shell is a command that reads lines from either a file or the termi‐
@@ -30,10 +30,10 @@ the positional parameters of the shell ($1, $2, etc).  Otherwise, the
 shell reads commands from its standard input.
 
 
-.SH Examples 
+.SH Examples
 .RS
 
-.SS interactive
+.SS No interactive
 
 .BI input:
 
@@ -79,21 +79,21 @@ total 64
 
 $
 
-.SS Not interactive
+.SS Interactive
 
 .BI input:
 
-daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out 
+daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out
 $ qwerty
 
 .BI output:
 
 error: No such file or directory
-$ 
+$
 
 .BI input:
 
-daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out 
+daniel@daniel-BOHK-WAX9X:~/Holberton/simple_shell$ ./a.out
 $ ls -l
 
 .BI output:
@@ -128,7 +128,7 @@ total 52
 
 $
 
-.SH BUGS 
+.SH BUGS
 
 if you found some issues or bugs please report to 1826@holbertonschool.com || 2057@holbertonschool.com
 
