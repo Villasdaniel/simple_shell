@@ -1,6 +1,8 @@
 #include "holberton.h"
 /**
  * main - Entry point for shell
+ * @argc: Number of arguments
+ * @argv: string of arguments
  * Return: 0 (Return value)
  */
 int main(int __attribute__((unused))argc, char **argv)
@@ -29,7 +31,7 @@ int main(int __attribute__((unused))argc, char **argv)
 		}
 		if (read != EOF)
 		{
-			command_line = _strtok(command_line, "\n");
+			command_line = strtok(command_line, "\n");
 			if (_myexit(command_line) == 0)
 			{
 				free(command_line);

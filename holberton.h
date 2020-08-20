@@ -22,6 +22,11 @@ typedef struct link
 {char *dir;
 struct link *next;
 } link_t;
+/**
+* struct formats - struct formats
+* @ch: pointer to firts element.
+* @func: The function associated.
+*/
 typedef struct formats
 	{
 		char *ch;

@@ -81,7 +81,7 @@ char **splitline(char *command_line)
 	ptrstr = malloc(sizeof(char *) * size);
 	if (ptrstr == NULL)
 		exit(EXIT_FAILURE);
-	word = _strtok(command_line, del);
+	word = strtok(command_line, del);
 	while (word != NULL)
 	{
 		ptrstr[position++] = word;
@@ -93,17 +93,17 @@ char **splitline(char *command_line)
 /**
  * execute_process - execute process function
  * @argm: arguments from command_line
+ * @argv: string of arguments
  * Return: 0 (Success) -1 (Failed)
  **/
 int execute_process(char **argm, char **argv)
 {
 	pid_t child_process;
-	int status;
+	int status, i = 0;
 	char *path = NULL;
 	link_t *head = NULL;
 	char *buffer = NULL;
 	int status_output = 0;
-	int i = 0;
 
 	path = _getenv("PATH");
 	head = _link(path);
@@ -111,7 +111,7 @@ int execute_process(char **argm, char **argv)
 	i++;
 	if (buffer == NULL)
 	{
-		_printf("%s: %i: %s: not found\n",argv[0], i, argm[0]);
+		_printf("%s: %i: %s: not found\n", argv[0], i, argm[0]);
 		free(buffer);
 		free(path);
 		free_list(head);
@@ -119,9 +119,7 @@ int execute_process(char **argm, char **argv)
 	}
 	child_process = fork();
 	if (child_process < 0)
-	{
 		exit(errno);
-	}
 	else if (child_process == 0)
 	{
 		if (execve(buffer, argm, environ) == -1)
