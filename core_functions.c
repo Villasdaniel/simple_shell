@@ -9,6 +9,7 @@ char *_getenv(const char *name)
 	int i;
 	int j;
 	char *a;
+	char *copy;
 
 	for (i = 0 ; environ[i] != NULL ; i++)
 	{
@@ -17,7 +18,13 @@ char *_getenv(const char *name)
 			if (name[j + 1] == '\0')
 			{
 				a = &environ[i][j + 2];
-				return (a);
+				copy = malloc(sizeof(char) * _strlen(a) + 1);
+
+				if (!copy)
+					return (NULL);
+
+				copy = _strcpy(copy, a);
+				return (copy);
 			}
 		}
 	}
@@ -96,24 +103,20 @@ int execute_process(char **argm)
 	link_t *head = NULL;
 	char *buffer = NULL;
 	int status_output = 0;
-	
+
 	path = _getenv("PATH");
-	printf("%s\n", path);
 	head = _link(path);
 	buffer = _which(&head, argm[0]);
-	child_process = fork();
-	printf("este es el proceso: %i\n", child_process);
 	if (buffer == NULL)
 	{
-		perror("error");
-		/*free(buffer);
-		free_array(argm);
-		free_list(head);*/
+		free(buffer);
+		free(path);
+		free_list(head);
 		return (1);
 	}
+	child_process = fork();
 	if (child_process < 0)
 	{
-		printf("child_process: %i", child_process);
 		exit(errno);
 	}
 	else if (child_process == 0)
@@ -128,12 +131,10 @@ int execute_process(char **argm)
 	{
 		wait(&status);
 		if (WIFEXITED(status))
-		{
 			status_output = WEXITSTATUS(status);
-		}
-		/*free(buffer);
-		free(argm);*/
-		/*free_list(head);*/
+		free(buffer);
+		free(path);
+		free_list(head);
 	}
 	return (status_output);
 }
@@ -145,21 +146,19 @@ int execute_process(char **argm)
  **/
 char *_which(link_t **head, char *av)
 {
-	struct stat st;
 	link_t *pusher = *head;
 	char *buffer;
 
-	if (stat(av, &st) == 0)
+	if (access(av, X_OK) == 0)
 		return (av);
 	while (pusher)
 	{
 		buffer = _strcat(pusher->dir, "/", av);
-		printf("%s\n", buffer);
-		if (stat((const char *)buffer, &st) == 0)
+		if (access(buffer, X_OK) == 0)
 		{
 			return (buffer);
 		}
-		/*free(buffer);*/
+		free(buffer);
 		pusher = pusher->next;
 	}
 	return (NULL);
