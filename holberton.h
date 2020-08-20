@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <signal.h>
+#include <stdarg.h>
+#include <limits.h>
 
 /**
  * struct link - node that contains the directories
@@ -20,6 +22,17 @@ typedef struct link
 {char *dir;
 struct link *next;
 } link_t;
+typedef struct formats
+	{
+		char *ch;
+		int (*func)();
+	} form;
+int _putchar(char c);
+int _printf(const char *format, ...);
+int p_aux_int(long int n, long int);
+int p_str(va_list arguments);
+int p_char(va_list arguments);
+int p_int(va_list arguments);
 extern char **environ;
 char *_getenv(const char *name);
 char *_strcpy(char *dest, char *src);
@@ -29,7 +42,7 @@ char **splitline(char *command_line);
 void signal_c(int sign);
 int _myexit(char *line);
 int _strlen(char *s);
-int execute_process(char **argm);
+int execute_process(char **argm, char **argv);
 link_t *_add_nodeint_end(link_t **head, char *n);
 size_t _print_listint(link_t *h);
 link_t *_link(char *a);
