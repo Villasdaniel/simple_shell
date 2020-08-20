@@ -54,6 +54,6 @@ link_t *_link(char *a);
 char *_strcat(char *directory, char *slash, char *arg);
 char *_which(link_t **head, char *av);
 void free_list(link_t *head);
-void free_array(char **argm);
+char *check_path(char *argm);
 int _myenv(char *line);
 #endif
