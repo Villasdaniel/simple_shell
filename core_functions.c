@@ -85,7 +85,7 @@ char **splitline(char *command_line)
 	while (word != NULL)
 	{
 		ptrstr[position++] = word;
-		word = _strtok(NULL, del);
+		word = strtok(NULL, del);
 	}
 	ptrstr[position] = NULL;
 	return (ptrstr);
@@ -94,26 +94,23 @@ char **splitline(char *command_line)
  * execute_process - execute process function
  * @argm: arguments from command_line
  * @argv: string of arguments
+ * @counter: number of ecution processes
  * Return: 0 (Success) -1 (Failed)
  **/
-int execute_process(char **argm, char **argv)
+int execute_process(char **argm, char **argv, int counter)
 {
 	pid_t child_process;
-	int status, i = 0, status_output = 0;
-	char *path = NULL, *buffer = NULL, *command_path = NULL;
-	link_t *head = NULL;
+	int status, status_output = 0;
+	char *buffer = NULL, *command_path = NULL;
 
-	i++;
 	command_path = check_path(argm[0]);
 	if (command_path == NULL)
 	{
-		path = _getenv("PATH");
-		head = _link(path);
-		buffer = _which(&head, argm[0]);
+		buffer = execute_command(argm[0]);
 		if (buffer == NULL)
 		{
-			_printf("%s: %i: %s: not found\n", argv[0], i, argm[0]);
-			free(buffer), free(path), free_list(head);
+			_printf("%s: %d: %s: not found\n", argv[0], counter, argm[0]);
+			free(buffer);
 			return (1);
 		}
 	}
@@ -130,13 +127,12 @@ int execute_process(char **argm, char **argv)
 		if (execve(buffer, argm, environ) == -1)
 			exit(errno);
 	}
-	else
-	{
-		wait(&status);
-		if (WIFEXITED(status))
-			status_output = WEXITSTATUS(status);
-		free(buffer), free(path), free_list(head);
-	}
+
+	wait(&status);
+	if (WIFEXITED(status))
+		status_output = WEXITSTATUS(status);
+	free(buffer);
+
 	return (status_output);
 }
 /**
@@ -149,6 +145,12 @@ char *_which(link_t **head, char *av)
 {
 	link_t *pusher = *head;
 	char *buffer;
+
+	if (av[0] == '.' || av[0] == '/')
+	{
+		if (access(av, X_OK) == 0)
+			return (av);
+	}
 
 	while (pusher)
 	{

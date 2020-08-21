@@ -32,6 +32,8 @@ typedef struct formats
 		char *ch;
 		int (*func)();
 	} form;
+
+char *execute_command(char *argm);
 int _putchar(char c);
 int _printf(const char *format, ...);
 int p_aux_int(long int n, long int);
@@ -47,7 +49,7 @@ char **splitline(char *command_line);
 void signal_c(int sign);
 int _myexit(char *line);
 int _strlen(char *s);
-int execute_process(char **argm, char **argv);
+int execute_process(char **argm, char **argv, int counter);
 link_t *_add_nodeint_end(link_t **head, char *n);
 size_t _print_listint(link_t *h);
 link_t *_link(char *a);
