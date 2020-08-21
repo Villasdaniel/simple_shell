@@ -81,11 +81,11 @@ char **splitline(char *command_line)
 	ptrstr = malloc(sizeof(char *) * size);
 	if (ptrstr == NULL)
 		exit(EXIT_FAILURE);
-	word = strtok(command_line, del);
+	word = _strtok(command_line, del);
 	while (word != NULL)
 	{
 		ptrstr[position++] = word;
-		word = strtok(NULL, del);
+		word = _strtok(NULL, del);
 	}
 	ptrstr[position] = NULL;
 	return (ptrstr);

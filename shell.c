@@ -3,6 +3,7 @@
  * main - Entry point for shell
  * @argc: Number of arguments
  * @argv: string of arguments
+ * @env: enviromet variable
  * Return: 0 (Return value)
  */
 int main(int __attribute__((unused))argc, char **argv, char **env)
@@ -31,7 +32,7 @@ int main(int __attribute__((unused))argc, char **argv, char **env)
 		if (read != EOF)
 		{
 			counter++;
-			command_line = strtok(command_line, "\n");
+			command_line = _strtok(command_line, "\n");
 			if (_myexit(command_line) == 0)
 				return (status_output);
 			if (_myenv(command_line, counter, argv, env) == 0)
