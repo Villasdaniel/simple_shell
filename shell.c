@@ -34,7 +34,7 @@ int main(int __attribute__((unused))argc, char **argv)
 			command_line = strtok(command_line, "\n");
 			if (_myexit(command_line) == 0)
 				return (status_output);
-			if (_myenv(command_line) == 0)
+			if (_myenv(command_line, counter, argv) == 0)
 				continue;
 			argm = splitline(command_line);
 			if (argm[0] == NULL)

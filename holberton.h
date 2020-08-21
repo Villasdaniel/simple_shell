@@ -40,7 +40,6 @@ int p_aux_int(long int n, long int);
 int p_str(va_list arguments);
 int p_char(va_list arguments);
 int p_int(va_list arguments);
-extern char **environ;
 char *_getenv(const char *name);
 char *_strcpy(char *dest, char *src);
 char *_strtok(char *str, char *delim);
@@ -57,5 +56,5 @@ char *_strcat(char *directory, char *slash, char *arg);
 char *_which(link_t **head, char *av);
 void free_list(link_t *head);
 char *check_path(char *argm);
-int _myenv(char *line);
+int _myenv(char *line, int counter, char **argv);
 #endif
