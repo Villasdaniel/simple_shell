@@ -36,9 +36,12 @@ void signal_c(int sign)
 /**
  * _myenv - print the environment variables separated.
  * @line: The command line.
- * Return: 0 if succes or 1 if fails.
+ * @counter: number of entry arguments
+ * @argv: entry arguments from main
+ * @env: enviroment variables
+ * Return: 0 if succes or 1 if fails. 127 if env not found
  **/
-int _myenv(char *line)
+int _myenv(char *line, int counter, char **argv, char **env)
 {
 	char *env_line = "env";
 	int i = 0;
@@ -52,11 +55,18 @@ int _myenv(char *line)
 				return (1);
 			i++;
 		}
-		for (i = 0; environ[i] != NULL; i++)
+		if (env)
 		{
-			_printf("%s\n", environ[i]);
+			for (i = 0; env[i] != NULL; i++)
+				_printf("%s\n", env[i]);
+			free(line);
+			return (0);
 		}
-		return (0);
+		else
+		{
+			_printf("%s: %d: env: not found\n", argv[0], counter);
+			return (127);
+		}
 	}
 	return (1);
 }
