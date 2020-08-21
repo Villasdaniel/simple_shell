@@ -10,7 +10,7 @@ Is an standard command interpretation for system.
 
 ### Flowchart
 
-![Flowchart simple shell]()
+<p align="center"><img src="https://github.com/Villasdaniel/simple_shell/blob/master/Shell%20flowchart.jpg" width="450" height="350"></p>
 
 ### Header
 
