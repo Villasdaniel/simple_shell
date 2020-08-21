@@ -32,7 +32,7 @@ int main(int __attribute__((unused))argc, char **argv, char **env)
 		if (read != EOF)
 		{
 			counter++;
-			_strtok(command_line, del);
+			command_line = strtok(command_line, del);
 			if (_myexit(command_line) == 0)
 				return (status_output);
 			if (_myenv(command_line, counter, argv, env) == 0)
