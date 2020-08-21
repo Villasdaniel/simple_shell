@@ -38,16 +38,14 @@ void signal_c(int sign)
  * @line: The command line.
  * @counter: number of entry arguments
  * @argv: entry arguments from main
- * Return: 0 if succes or 1 if fails.
+ * @env: enviroment variables
+ * Return: 0 if succes or 1 if fails. 127 if env not found
  **/
-int _myenv(char *line, int counter, char **argv)
+int _myenv(char *line, int counter, char **argv, char **env)
 {
 	char *env_line = "env";
 	int i = 0;
 	int len = _strlen(line);
-	pid_t child_process = 0;
-	int status;
-	char *args[2] = {"/usr/bin/env", NULL};
 
 	if (len == 3)
 	{
@@ -57,22 +55,12 @@ int _myenv(char *line, int counter, char **argv)
 				return (1);
 			i++;
 		}
-		if (access("/usr/bin/env", X_OK) == 0)
+		if (env)
 		{
-			child_process = fork();
-			if (child_process < 0)
-			{
-				return (1);
-			}
-			else if (child_process == 0)
-			{
-				if (execve(args[0], args, NULL) == -1)
-					exit(errno);
-			}
-			else
-			{
-				wait(&status);
-			}
+			for (i = 0; env[i] != NULL; i++)
+				_printf("%s\n", env[i]);
+			free(line);
+			return (0);
 		}
 		else
 		{
