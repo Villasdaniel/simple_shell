@@ -18,6 +18,7 @@ int _myexit(char *line)
 				return (1);
 			i++;
 		}
+		free(line);
 		return (0);
 	}
 	return (1);

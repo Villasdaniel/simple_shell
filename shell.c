@@ -7,14 +7,14 @@
  */
 int main(int __attribute__((unused))argc, char **argv)
 {
-	int status_output = 0, read = 1;
+	int status_output = 0, read = 1, counter = 0;
 
 	while (read)
 	{
 		char *command_line = NULL, **argm = NULL;
 		size_t line_size = 0;
 
-		if (isatty(STDIN_FILENO))
+		if (isatty(STDIN_FILENO) == 1)
 			write(STDOUT_FILENO, "#cisfun$ ", 10);
 		signal(SIGINT, signal_c);
 		read = getline(&command_line, &line_size, stdin);
@@ -30,6 +30,7 @@ int main(int __attribute__((unused))argc, char **argv)
 		}
 		if (read != EOF)
 		{
+			counter++;
 			command_line = strtok(command_line, "\n");
 			if (_myexit(command_line) == 0)
 				return (status_output);
@@ -40,7 +41,7 @@ int main(int __attribute__((unused))argc, char **argv)
 				free(command_line), free(argm);
 				continue;
 			}
-			status_output = execute_process(argm, argv);
+			status_output = execute_process(argm, argv, counter);
 		}
 		free(command_line), free(argm);
 	}
