@@ -73,7 +73,6 @@ ssize_t _getline(char **bufline, size_t *size, FILE *std)
 char **splitline(char *command_line)
 {
 	char **ptrstr;
-	char *del = " ";
 	int size = 100;
 	int position = 0;
 	char *word;
@@ -81,11 +80,11 @@ char **splitline(char *command_line)
 	ptrstr = malloc(sizeof(char *) * size);
 	if (ptrstr == NULL)
 		exit(EXIT_FAILURE);
-	word = _strtok(command_line, del);
+	word = _strtok(command_line, " ");
 	while (word != NULL)
 	{
 		ptrstr[position++] = word;
-		word = _strtok(NULL, del);
+		word = _strtok(NULL, " ");
 	}
 	ptrstr[position] = NULL;
 	return (ptrstr);

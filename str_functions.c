@@ -52,10 +52,12 @@ char *_strtok(char *str, char *delim)
 
 	if (!delim || (!str && !tracker))
 		return (NULL);
-	if (str == NULL)
-		str = tracker;
+	str == NULL ? str = tracker : str;
 	for (; str[j] == ' ' ; j++)
-		;
+	{
+		if (str[j + 1] == '\0')
+			return (NULL);
+	}
 	for (i = j ; str[i] != '\0' ; i++)
 	{
 		if (str[i] == *delim)
@@ -65,18 +67,15 @@ char *_strtok(char *str, char *delim)
 		}
 	}
 	for (; str[i] != '\0' ; i++)
-	{
 		if (str[i] != delim[0])
 			break;
 		else if (str[i + 1] == '\0')
 		{
-			a = 0;
-			str[i] = '\0';
+			a = 0, str[i] = '\0';
 			break;
 		}
 		else
 			str[i] = '\0';
-	}
 	if (a == 0)
 	{
 		tracker = NULL;

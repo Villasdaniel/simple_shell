@@ -12,7 +12,7 @@ int main(int __attribute__((unused))argc, char **argv, char **env)
 
 	while (read)
 	{
-		char *command_line = NULL, **argm = NULL, *del = "\n";
+		char *command_line = NULL, **argm = NULL;
 		size_t line_size = 0;
 
 		if (isatty(STDIN_FILENO) == 1)
@@ -32,7 +32,7 @@ int main(int __attribute__((unused))argc, char **argv, char **env)
 		if (read != EOF)
 		{
 			counter++;
-			command_line = strtok(command_line, del);
+			_strtok(command_line, "\n");
 			if (_myexit(command_line) == 0)
 				return (status_output);
 			if (_myenv(command_line, counter, argv, env) == 0)
