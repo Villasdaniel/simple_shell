@@ -41,7 +41,7 @@ void signal_c(int sign)
 int _myenv(char *line)
 {
 	char *env_line = "env";
-	int i = 0, j;
+	int i = 0;
 	int len = _strlen(line);
 
 	if (len == 3)
@@ -54,11 +54,7 @@ int _myenv(char *line)
 		}
 		for (i = 0; environ[i] != NULL; i++)
 		{
-			for (j = 0; environ[i][j] != '\0'; j++)
-			{
-				write(STDOUT_FILENO, &environ[i][j], 1);
-			}
-			write(STDOUT_FILENO, "\n", 1);
+			_printf("%s\n", environ[i]);
 		}
 		return (0);
 	}
