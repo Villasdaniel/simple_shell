@@ -12,7 +12,9 @@
 #include <signal.h>
 #include <stdarg.h>
 #include <limits.h>
-
+#ifndef BUFF_SIZE
+#define BUFF_SIZE 300
+#endif
 /**
  * struct link - node that contains the directories
  * @dir: directory
@@ -58,4 +60,5 @@ char *_which(link_t **head, char *av);
 void free_list(link_t *head);
 char *check_path(char *argm);
 int _myenv(char *line, int counter, char **argv, char **env);
+int _getchar();
 #endif
