@@ -51,10 +51,13 @@ ssize_t _getline(char **bufline, size_t *size, FILE *std)
 		if (!(*bufline))
 			return (-1);
 	}
-	while ((c = getchar()) != EOF)
+	while ((c = _getchar()) != EOF)
 	{
 		if (c == '\n')
+		{
+			count++;
 			break;
+		}
 		count++;
 		(*bufline)[count - 1] = c;
 	}
