@@ -4,7 +4,7 @@
  * _getchar - get each character of the line command
  * Return: command line or EOF.
  **/
-int _getchar()
+int _getchar(void)
 {
 	static unsigned char buff[BUFF_SIZE];
 	static int index;
